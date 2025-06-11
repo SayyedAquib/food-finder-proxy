@@ -16,12 +16,12 @@ app.use((req, res, next) => {
 });
 
 app.use(
-  "/cors/dapi",
+  "/cors",
   createProxyMiddleware({
     target: "https://www.swiggy.com",
     changeOrigin: true,
     pathRewrite: {
-      "^/cors/dapi": "/dapi",
+      "^/cors": "", // Only strip "/cors", not "/dapi"
     },
     on: {
       proxyReq: (proxyReq, req, res) => {
@@ -37,6 +37,8 @@ app.use(
     },
   })
 );
+
+
 
 app.get("/", (req, res) => {
   res.send("Hello from the proxy server!");
